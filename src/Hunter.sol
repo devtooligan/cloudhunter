@@ -4,10 +4,42 @@ pragma solidity ^0.8.13;
 import {IQuiver} from "./interfaces/IQuiver.sol";
 import {AccessControl} from "yield-utils-v2/contracts/access/AccessControl.sol";
 
+/*
+                                             |
+                                              \.
+                                              /|.
+                                            /  `|.
+                                          /      .
+                                        /        |.                       (`  ).        .')        _
+                                      /          `|.                     (     ).      (_  )   .:(`  )`.
+                                    /             |.                    _(       '`.          :(   .    )
+                                  /               |.                .=(`(      .   )     .--  `.  (    ) )
+               ^^^^^^^          /                 `|.              ((    (..__.:'-'   .+(   )   ` _`  ) )
+              /       \       /                    |.              `(       ) )       (   .  )     (   )  ._
+             /|      ` \    /                      |.                ` __.:'   )     (   (   ))     `-'.-(`  )
+       _____/ =       =|__/___                     |.                       --'       `- __.(`        :(  (   ))
+   ,--' ,----`-,__ ___/'  --,-`-===================##===>   _______ _                 _               `( (_.'
+ \                '        ##_______ ______   _____##,__   (_______) |               | |   .')    .').  `
+   `,    __==    ___,-,__,--'#'  ==='     .`-'   | ##,-/    _      | | ___  _   _  __| |  (_  )  (_  )
+     `-,____,---'       \####\            ____,--\_##,/    | |     | |/ _ \| | | |/ _  |    ..=(`:'-'
+         #_         I    |##   \  _____,--         ##      | |_____| | |_| | |_| ( (_| |    ((  )
+          #         ♥    ]===--==\                 ||       \______)\_)___/|____/ \____|     (   )
+          #,      CLOUDS ]         \               ||                       _     _            -'
+           #_            |           \            ,|.                      (_)   (_)             _
+            ##_       __/'             \          |.                        _______ _   _ ____ _| |_ _____  ____
+             ####='     |                \       ,|.                       |  ___  | | | |  _ (_   _) ___ |/ ___)
+              ###       |                  \\    |.                        | |   | | |_| | | | || |_| ____| |
+              ##       _'                    \\  |.                        |_|   |_|____/|_| |_| \__)_____)_|
+             ###=======]                       \\|.
+            ///        |                        /.
+            //         |                       |
+
+*/
+
 /// The Hunter draws an Arrow, takes aim at a Cloud, and shoots.
 /// @title Hunter.sol
 /// @author @devtooligan
-/// @dev CloudHunter is a system for pre-computing, managing and deploying lazy, counterfactual, wallet contracts.
+/// @dev CloudHunter is a system for pre-computing, managing, and deploying lazy, counterfactual, wallet contracts.
 contract Hunter is AccessControl {
     /// The quiver holds the Arrows that can be used to electrify Clouds of nothingness.
     IQuiver public immutable quiver;
@@ -92,7 +124,7 @@ contract Hunter is AccessControl {
             let codeSize := mload(initCode) // get size of initCode
             cloud := create2(
                 0, // 0 wei
-                add(initCode, 32), // the bytecode itself starts at the second slot. The first slot contains array length
+                add(initCode, 32), // the bytecode starts at the second slot. The first slot contains array length
                 codeSize, // size of init_code
                 salt // salt from function arguments
             )
