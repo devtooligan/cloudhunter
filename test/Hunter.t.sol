@@ -5,6 +5,7 @@ import "forge-std/Test.sol";
 import "forge-std/console.sol";
 import {Hunter} from "../src/Hunter.sol";
 import {Quiver} from "../src/Quiver.sol";
+import {ETHArrow, ERC20Arrow, ERC721Arrow} from "../src/Arrows.sol";
 import {AccessControl} from "yield-utils-v2/contracts/access/AccessControl.sol";
 
 
@@ -44,38 +45,56 @@ contract HunterTest is Test {
         AccessControl(address(hunter)).grantRole(bytes4(hunter.shoot.selector), bob);
         AccessControl(address(hunter)).grantRole(bytes4(hunter.shootCustom.selector), bob);
 
-        quiver.set(bytes32("sendEth"), type(Arrow).creationCode);
-        bytes memory arrowCode = quiver.draw(bytes32("sendEth"));
-        require(keccak256(arrowCode) == keccak256(type(Arrow).creationCode));
+        bytes memory arrowCode = quiver.draw(bytes32("ethArrow"));
+        require(keccak256(arrowCode) == keccak256(type(ETHArrow).creationCode));
         vm.stopPrank();
     }
 
     function testUnitSeek() public view {
-        address payable cloud = hunter.seek(bytes32("sendEth"), args, 1);
-        require(cloud != address(0));
+        address payable cloud1 = hunter.seek(bytes32("ethArrow"), args, 1);
+        require(cloud1 != address(0));
+
+        address payable cloud2 = hunter.seek(bytes32("erc20Arrow"), args, 1);
+        require(cloud2 != address(0));
+
+        address payable cloud3 = hunter.seek(bytes32("erc721Arrow"), args, 1);
+        require(cloud3 != address(0));
     }
 
     function testUnitSeekCustom() public view {
-        address payable cloud = hunter.seek(bytes32("sendEth"), args, 1);
-        bytes memory initCode = abi.encodePacked(type(Arrow).creationCode, args);
-        address payable cloud2 = hunter.seekCustom(initCode, 1);
-        require(cloud2 == cloud);
+        address payable cloud1 = hunter.seek(bytes32("ethArrow"), args, 1);
+        bytes memory initCode1 = abi.encodePacked(type(ETHArrow).creationCode, args);
+        address payable cloudCustom1 = hunter.seekCustom(initCode1, 1);
+        require(cloudCustom1 == cloud1);
+
+        address payable cloud2 = hunter.seek(bytes32("erc20Arrow"), args, 1);
+        bytes memory initCode2 = abi.encodePacked(type(ERC20Arrow).creationCode, args);
+        address payable cloudCustom2 = hunter.seekCustom(initCode2, 1);
+        require(cloudCustom2 == cloud2);
+
+        address payable cloud3 = hunter.seek(bytes32("erc721Arrow"), args, 1);
+        bytes memory initCode3 = abi.encodePacked(type(ERC721Arrow).creationCode, args);
+        address payable cloudCustom3 = hunter.seekCustom(initCode3, 1);
+        require(cloudCustom3 == cloud3);
+
     }
 
     function testUnitShoot() public {
-        address payable cloud = hunter.seek(bytes32("sendEth"), args, 1);
+        // TODO: Finish up tests -- need to add mocks of erc20 and erc721
+        address payable cloud = hunter.seek(bytes32("ethArrow"), args, 1);
 
         vm.startPrank(bob);
         uint256 amount = 5 ether;
         cloud.transfer(amount); // bob transfers 5 eth to the Cloud
         require(alice.balance == 0); // confirm alice balance == 5 eth
         require(cloud.balance == amount); // confirm Cloud balance == 5 eth
-        hunter.shoot(bytes32("sendEth"), args, 1); // shoot Arrow at Cloud
+        hunter.shoot(bytes32("ethArrow"), args, 1); // shoot Arrow at Cloud
         require(cloud.balance == 0); // confirm Cloud balance == 0 eth
         require(alice.balance == amount); // confirm alice balance == 5 eth
+
     }
     function testUnitShootCustom() public {
-        address payable cloud = hunter.seek(bytes32("sendEth"), args, 1);
+        address payable cloud = hunter.seek(bytes32("ethArrow"), args, 1);
         bytes memory initCode = abi.encodePacked(type(Arrow).creationCode, abi.encode(alice));
 
         vm.startPrank(bob);
