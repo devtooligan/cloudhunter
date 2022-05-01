@@ -2,6 +2,7 @@
 pragma solidity ^0.8.13;
 
 import {IQuiver} from "./interfaces/IQuiver.sol";
+import {ETHArrow, ERC20Arrow, ERC721Arrow} from "./Arrows.sol";
 /*
 
               .. ^
@@ -39,6 +40,15 @@ contract Quiver is IQuiver {
     /// The internal registry that tracks the Arrows' creation codes.
     mapping(bytes32 => bytes) internal arrows;
 
+
+    constructor() {
+        // setup 3 basic Arrow types
+        _set(bytes32("ethArrow"), type(ETHArrow).creationCode);
+        _set(bytes32("erc20Arrow"), type(ERC20Arrow).creationCode);
+        _set(bytes32("erc721Arrow"), type(ERC721Arrow).creationCode);
+
+    }
+
     /// The external getter for Arrows.
     /// @param arrowId Id of arrow in bytes.  Example: "sendEth"
     /// @return The creation code for the Arrow.
@@ -54,5 +64,13 @@ contract Quiver is IQuiver {
     function set(bytes32 arrowId, bytes calldata creationCode) external returns (bool) {
         arrows[arrowId] = creationCode;
         return true;
+    }
+
+    /// The inernal setter for arrows -- used in the constructor.
+    /// @param arrowId Id of arrow in bytes.  Example: "sendEth"
+    /// @param creationCode The creation code for the Arrow. Obtainable with: type(ArrowContract).creationCode
+    /// @dev This will overwrite any existing value.  Use with caution.
+    function _set(bytes32 arrowId, bytes memory creationCode) internal {
+        arrows[arrowId] = creationCode;
     }
 }
