@@ -105,7 +105,7 @@ contract Hunter is AccessControl {
         uint256 salt
     ) public auth returns (address cloud) {
         bytes memory initCode = abi.encodePacked(quiver.draw(arrowId), args);
-        return shootCustom(initCode, salt);
+        return _shoot(initCode, salt);
     }
 
     /// Similar to shoot(), but instead of using an Arrow out of the Quiver, custom initCode is passed in.
@@ -124,7 +124,7 @@ contract Hunter is AccessControl {
             let codeSize := mload(initCode) // get size of initCode
             cloud := create2(
                 0, // 0 wei
-                add(initCode, 32), // the bytecode starts at the second slot. The first slot contains array length
+                add(initCode, 32), // the bytecode starts at the second slot. The first slot contains array length.
                 codeSize, // size of init_code
                 salt // salt from function arguments
             )
