@@ -7,7 +7,6 @@ import {Hunter} from "../src/Hunter.sol";
 import {Quiver} from "../src/Quiver.sol";
 import {AccessControl} from "yield-utils-v2/contracts/access/AccessControl.sol";
 
-// TODO: HunterGatherers = HunterFactory
 
 /// This arrow transfers eth and self destructs.
 contract Arrow {
