@@ -1,5 +1,34 @@
 # CloudHunter
-
+```
+                                             |
+                                              \.
+                                              /|.
+                                            /  `|.
+                                          /      .
+                                        /        |.                       (`  ).        .')        _
+                                      /          `|.                     (     ).      (_  )   .:(`  )`.
+                                    /             |.                    _(       '`.          :(   .    )
+                                  /               |.                .=(`(      .   )     .--  `.  (    ) )
+               ^^^^^^^          /                 `|.              ((    (..__.:'-'   .+(   )   ` _`  ) )
+              /       \       /                    |.              `(       ) )       (   .  )     (   )  ._
+             /|      ` \    /                      |.                ` __.:'   )     (   (   ))     `-'.-(`  )
+       _____/ =       =|__/___                     |.                       --'       `- __.(`        :(  (   ))
+   ,--' ,----`-,__ ___/'  --,-`-===================##===>   _______ _                 _               `( (_.'
+ \                '        ##_______ ______   _____##,__   (_______) |               | |   .')    .').  `
+   `,    __==    ___,-,__,--'#'  ==='     .`-'   | ##,-/    _      | | ___  _   _  __| |  (_  )  (_  )
+     `-,____,---'       \####\            ____,--\_##,/    | |     | |/ _ \| | | |/ _  |    ..=(`:'-'
+         #_         I    |##   \  _____,--         ##      | |_____| | |_| | |_| ( (_| |    ((  )
+          #         ♥    ]===--==\                 ||       \______)\_)___/|____/ \____|     (   )
+          #,      CLOUDS ]         \               ||                       _     _            -'
+           #_            |           \            ,|.                      (_)   (_)             _
+            ##_       __/'             \          |.                        _______ _   _ ____ _| |_ _____  ____
+             ####='     |                \       ,|.                       |  ___  | | | |  _ (_   _) ___ |/ ___)
+              ###       |                  \\    |.                        | |   | | |_| | | | || |_| ____| |
+              ##       _'                    \\  |.                        |_|   |_|____/|_| |_| \__)_____)_|
+             ###=======]                       \\|.
+            ///        |                        /.
+            //         |                       |
+```
 
 ### Hunter
 A ressurector of contracts that selfdestruct() in the void.  The Hunter draws an Arrow, takes aim at a Cloud, and shoots.  An instantaneous flash in the Cloud, gone as quickly as it is create2ed, but long enough to carry out mission critical intructions.
@@ -30,4 +59,4 @@ Step 5.
 Profit.
 
 # Acknowledgements
-Cloudhunter was inspired by [Fred's](https://twitter.com/0x66726564) [talk at Solidity Summit 2022](https://www.youtube.com/watch?v=E9usgNS6du0&list=PLX8x7Zj6Vezl1lqBgxiQH3TFbRNZza8Fk&index=6).  I also found Tena Codes [video](https://www.youtube.com/watch?v=ujeeP4wdsao) on this subject to be helpful.
+CloudHunter was inspired by [Fred's](https://twitter.com/0x66726564) [talk at Solidity Summit 2022](https://www.youtube.com/watch?v=E9usgNS6du0&list=PLX8x7Zj6Vezl1lqBgxiQH3TFbRNZza8Fk&index=6).  I also found Tena Codes [video](https://www.youtube.com/watch?v=ujeeP4wdsao) on this subject to be helpful.

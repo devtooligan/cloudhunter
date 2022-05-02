@@ -103,7 +103,7 @@ contract Hunter is AccessControl {
         bytes32 arrowId,
         bytes calldata args,
         uint256 salt
-    ) public auth returns (address cloud) {
+    ) public auth returns (address payable cloud) {
         bytes memory initCode = abi.encodePacked(quiver.draw(arrowId), args);
         return _shoot(initCode, salt);
     }
@@ -114,12 +114,12 @@ contract Hunter is AccessControl {
     /// @param salt User selected salt which allows for optional duplication of contracts.
     /// @return cloud The address of a cloud of nothingness.
     /// @dev This fn does not use calldata because that would need to be copied into memory anyways.
-    function shootCustom(bytes memory initCode, uint256 salt) public auth returns (address cloud) {
+    function shootCustom(bytes memory initCode, uint256 salt) public auth returns (address payable cloud) {
         return _shoot(initCode, salt);
     }
 
     /// @dev Internal function used by shoot() and shootCustom()
-    function _shoot(bytes memory initCode, uint256 salt) internal virtual returns (address cloud) {
+    function _shoot(bytes memory initCode, uint256 salt) internal virtual returns (address payable cloud) {
         assembly {
             let codeSize := mload(initCode) // get size of initCode
             cloud := create2(

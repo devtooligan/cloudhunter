@@ -1,2 +1,3 @@
 forge-std/=lib/forge-std/src/
 yield-utils-v2/=lib/yield-utils-v2/
+solmate/=lib/solmate/src/
