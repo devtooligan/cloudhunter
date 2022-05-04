@@ -42,8 +42,10 @@ A smart contract address that's deterministically pre-computed but has no contra
 ### Quiver
 A registry of Arrows.
 
+
+### Use
 Step 1.
-Deploy Quiver.
+Deploy Quiver (or use the [Quiver already deployed on arbitrum](https://arbiscan.io/address/0x3d87d8fbb1e537aa50b0876ca13ad6d464678117#code).
 
 Step 2.
 Deploy Hunter.

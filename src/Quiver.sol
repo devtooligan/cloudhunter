@@ -43,34 +43,24 @@ contract Quiver is IQuiver {
 
     constructor() {
         // setup 3 basic Arrow types
-        _set(bytes32("ethArrow"), type(ETHArrow).creationCode);
-        _set(bytes32("erc20Arrow"), type(ERC20Arrow).creationCode);
-        _set(bytes32("erc721Arrow"), type(ERC721Arrow).creationCode);
+        set("ethArrow", type(ETHArrow).creationCode);
+        set("erc20Arrow", type(ERC20Arrow).creationCode);
+        set("erc721Arrow", type(ERC721Arrow).creationCode);
 
     }
 
     /// The external getter for Arrows.
     /// @param arrowId Id of arrow in bytes.  Example: "sendEth"
     /// @return The creation code for the Arrow.
-    function draw(bytes32 arrowId) external view returns (bytes memory) {
-        return arrows[arrowId];
-    }
-
-    /// The external setter for arrows.
-    /// @param arrowId Id of arrow in bytes.  Example: "sendEth"
-    /// @param creationCode The creation code for the Arrow. Obtainable with: type(ArrowContract).creationCode
-    /// @return True if successful.
-    /// @dev This will overwrite any existing value.  Use with caution.
-    function set(bytes32 arrowId, bytes calldata creationCode) external returns (bool) {
-        arrows[arrowId] = creationCode;
-        return true;
+    function draw(string calldata arrowId) external view returns (bytes memory) {
+        return arrows[bytes32(bytes(arrowId))];
     }
 
     /// The inernal setter for arrows -- used in the constructor.
-    /// @param arrowId Id of arrow in bytes.  Example: "sendEth"
+    /// @param arrowId Id of arrow.  Example: "sendEth"
     /// @param creationCode The creation code for the Arrow. Obtainable with: type(ArrowContract).creationCode
-    /// @dev This will overwrite any existing value.  Use with caution.
-    function _set(bytes32 arrowId, bytes memory creationCode) internal {
-        arrows[arrowId] = creationCode;
+    /// @dev This will overwrite any existing value.  No check for > 32bytes overflow. Use with caution.
+    function set(string memory arrowId, bytes memory creationCode) public {
+        arrows[bytes32(bytes(arrowId))] = creationCode;
     }
 }

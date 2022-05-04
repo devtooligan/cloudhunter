@@ -33,9 +33,9 @@ contract HunterTest is Test {
     //constants
     uint256 public constant WAD = 1e18;
     uint256 public constant NFT_TOKEN_ID = 1;
-    bytes public constant ETH_ARROW = "ethArrow";
-    bytes public constant ERC20_ARROW = "erc20Arrow";
-    bytes public constant ERC721_ARROW = "erc721Arrow";
+    string public constant ETH_ARROW = "ethArrow";
+    string public constant ERC20_ARROW = "erc20Arrow";
+    string public constant ERC721_ARROW = "erc721Arrow";
 
 
     function setUp() public {
@@ -52,7 +52,7 @@ contract HunterTest is Test {
         AccessControl(address(hunter)).grantRole(bytes4(hunter.shoot.selector), bob);
         AccessControl(address(hunter)).grantRole(bytes4(hunter.shootCustom.selector), bob);
 
-        bytes memory arrowCode = quiver.draw(bytes32(ETH_ARROW));
+        bytes memory arrowCode = quiver.draw(ETH_ARROW);
         require(keccak256(arrowCode) == keccak256(type(ETHArrow).creationCode));
         vm.stopPrank();
 
@@ -69,28 +69,28 @@ contract HunterTest is Test {
 
     // function testUnitSeek() public view {
     function testUnitSeek() public {
-        address payable cloud1 = hunter.seek(bytes32(ETH_ARROW), argsETH, 1);
+        address payable cloud1 = hunter.seek(ETH_ARROW, argsETH, 1);
         require(cloud1 != address(0));
 
-        address payable cloud2 = hunter.seek(bytes32(ERC20_ARROW), argsETH, 1);
+        address payable cloud2 = hunter.seek(ERC20_ARROW, argsETH, 1);
         require(cloud2 != address(0));
 
-        address payable cloud3 = hunter.seek(bytes32(ERC721_ARROW), argsETH, 1);
+        address payable cloud3 = hunter.seek(ERC721_ARROW, argsETH, 1);
         require(cloud3 != address(0));
     }
 
     function testUnitSeekCustom() public view {
-        address payable cloud1 = hunter.seek(bytes32(ETH_ARROW), argsETH, 1);
+        address payable cloud1 = hunter.seek(ETH_ARROW, argsETH, 1);
         bytes memory initCode1 = abi.encodePacked(type(ETHArrow).creationCode, argsETH);
         address payable cloudCustom1 = hunter.seekCustom(initCode1, 1);
         require(cloudCustom1 == cloud1);
 
-        address payable cloud2 = hunter.seek(bytes32(ERC20_ARROW), argsETH, 1);
+        address payable cloud2 = hunter.seek(ERC20_ARROW, argsETH, 1);
         bytes memory initCode2 = abi.encodePacked(type(ERC20Arrow).creationCode, argsETH);
         address payable cloudCustom2 = hunter.seekCustom(initCode2, 1);
         require(cloudCustom2 == cloud2);
 
-        address payable cloud3 = hunter.seek(bytes32(ERC721_ARROW), argsETH, 1);
+        address payable cloud3 = hunter.seek(ERC721_ARROW, argsETH, 1);
         bytes memory initCode3 = abi.encodePacked(type(ERC721Arrow).creationCode, argsETH);
         address payable cloudCustom3 = hunter.seekCustom(initCode3, 1);
         require(cloudCustom3 == cloud3);
@@ -98,44 +98,44 @@ contract HunterTest is Test {
     }
 
     function testUnitShootETH() public {
-        address payable cloud = hunter.seek(bytes32(ETH_ARROW), argsETH, 1);
+        address payable cloud = hunter.seek(ETH_ARROW, argsETH, 1);
         vm.startPrank(bob);
         uint256 amount = 5 ether;
         cloud.transfer(amount); // bob transfers 5 eth to the Cloud
         require(alice.balance == 0); // confirm alice balance == 0 eth
         require(cloud.balance == amount); // confirm Cloud balance == 5 eth
-        hunter.shoot(bytes32(ETH_ARROW), argsETH, 1); // shoot Arrow at Cloud
+        hunter.shoot(ETH_ARROW, argsETH, 1); // shoot Arrow at Cloud
         require(cloud.balance == 0); // confirm Cloud balance == 0 eth
         require(alice.balance == amount); // confirm alice balance == 5 eth
     }
 
     function testUnitShootERC20() public {
-        address payable cloud = hunter.seek(bytes32(ERC20_ARROW), argsERC20, 1);
+        address payable cloud = hunter.seek(ERC20_ARROW, argsERC20, 1);
         uint256 amount = 5 * WAD;
         erc20.mint(cloud, amount); // mint 5 tokens to cloud
         require(erc20.balanceOf(alice) == 0); // confirm alice balance == 0 tokens
         require(erc20.balanceOf(cloud) == amount); // confirm Cloud balance == 5 tokens
 
         vm.prank(bob);
-        hunter.shoot(bytes32(ERC20_ARROW), argsERC20, 1); // shoot Arrow at Cloud
+        hunter.shoot(ERC20_ARROW, argsERC20, 1); // shoot Arrow at Cloud
 
         require(erc20.balanceOf(cloud) == 0); // confirm Cloud balance == 0 tokens
         require(erc20.balanceOf(alice) == amount); // confirm alice balance == 5 tokens
     }
 
     function testUnitShootERC721() public {
-        address payable cloud = hunter.seek(bytes32(ERC721_ARROW), argsERC721, 1);
+        address payable cloud = hunter.seek(ERC721_ARROW, argsERC721, 1);
         erc721.mint(cloud, 1); // mint 1 nft to cloud
         require(erc721.ownerOf(1) == cloud); // confirm Cloud holds 1 nft
 
         vm.prank(bob);
-        hunter.shoot(bytes32(ERC721_ARROW), argsERC721, 1); // shoot Arrow at Cloud
+        hunter.shoot(ERC721_ARROW, argsERC721, 1); // shoot Arrow at Cloud
 
         require(erc721.ownerOf(1) == cloud); // confirm alice holds 1 nft
     }
 
     function testUnitShootCustomETH() public {
-        address payable cloud = hunter.seek(bytes32(ETH_ARROW), argsETH, 1);
+        address payable cloud = hunter.seek(ETH_ARROW, argsETH, 1);
         bytes memory initCode = abi.encodePacked(type(ETHArrow).creationCode, argsETH);
         uint256 amount = 5 ether;
         vm.startPrank(bob);
@@ -150,7 +150,7 @@ contract HunterTest is Test {
     }
 
     function testUnitShootCustomERC20() public {
-        address payable cloud = hunter.seek(bytes32(ERC20_ARROW), argsERC20, 1);
+        address payable cloud = hunter.seek(ERC20_ARROW, argsERC20, 1);
         bytes memory initCode = abi.encodePacked(type(ERC20Arrow).creationCode, argsERC20);
         uint256 amount = 5 * WAD;
         erc20.mint(cloud, amount); // mint 5 tokens to cloud
@@ -165,7 +165,7 @@ contract HunterTest is Test {
     }
 
     function testUnitShootCustomERC721() public {
-        address payable cloud = hunter.seek(bytes32(ERC721_ARROW), argsERC721, 1);
+        address payable cloud = hunter.seek(ERC721_ARROW, argsERC721, 1);
         bytes memory initCode = abi.encodePacked(type(ERC721Arrow).creationCode, argsERC721);
 
         erc721.mint(cloud, 1); // mint 1 nft to cloud

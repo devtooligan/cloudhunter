@@ -2,7 +2,7 @@
 pragma solidity ^0.8.13;
 
 interface IQuiver {
-    function draw(bytes32 arrowId) external view returns (bytes memory);
+    function draw(string memory arrowId) external view returns (bytes memory);
 
-    function set(bytes32 arrowId, bytes calldata creationCode) external returns (bool);
+    function set(string memory arrowId, bytes calldata creationCode) external;
 }

@@ -55,7 +55,7 @@ contract Hunter is AccessControl {
     /// @return cloud The address of a lazy, counterfactual, wallet contract; a cloud of nothingness.
     /// Before it's deployed, this address can be interacted with normally including sending ETH, tokens, or NFT's.
     function seek(
-        bytes32 arrowId,
+        string calldata arrowId,
         bytes calldata args,
         uint256 salt
     ) public view returns (address payable cloud) {
@@ -100,7 +100,7 @@ contract Hunter is AccessControl {
     /// @param salt User selected salt which allows for optional duplication of contracts.
     /// @return cloud The address of the Cloud that the Arrow contract was deployed to.
     function shoot(
-        bytes32 arrowId,
+        string calldata arrowId,
         bytes calldata args,
         uint256 salt
     ) public auth returns (address payable cloud) {
