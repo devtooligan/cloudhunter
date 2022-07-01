@@ -31,7 +31,7 @@ _       __/'             \          |.                        _______ _   _ ____
 ```
 
 ### Hunter
-A ressurector of contracts that selfdestruct() in the void.  The Hunter draws an Arrow, takes aim at a Cloud, and shoots.  An instantaneous flash in the Cloud, gone as quickly as it is create2ed, but long enough to carry out mission critical intructions.
+A ressurector of contracts that `selfdestruct()` in the void.  The Hunter draws an Arrow, takes aim at a Cloud, and shoots.  An instantaneous flash in the Cloud, gone as quickly as it is create2ed, but long enough to carry out mission critical intructions.
 
 ### Arrow
 An arrow made of bytecode that never misses it's intended target.
@@ -45,16 +45,16 @@ A registry of Arrows.
 
 ### Use
 Step 1.
-Deploy Quiver (or use the [Quiver already deployed on arbitrum](https://arbiscan.io/address/0x3d87d8fbb1e537aa50b0876ca13ad6d464678117#code).
+Deploy Quiver (or use the [Quiver already deployed on arbitrum])(https://arbiscan.io/address/0x3d87d8fbb1e537aa50b0876ca13ad6d464678117#code).
 
 Step 2.
 Deploy Hunter.
 
 Step 3.
-seek() - Based on the Hunter's address, the Arrow used, and user defined salt, the perfect Cloud is found.
+`seek()` - Based on the Hunter's address, the Arrow used, and user defined salt, the perfect Cloud is found.
 
 Step 4.
-shoot() - After the user has sent in funds or done whatever is needed with the cloud address, a
+`shoot()` - After the user has sent in funds or done whatever is needed with the cloud address, a
 contract is create2ed in the cloud which then carries out instructions before selfdestruct()ing.
 
 Step 5.
