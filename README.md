@@ -37,7 +37,7 @@ A ressurector of contracts that `selfdestruct()` in the void.  The Hunter draws 
 An arrow made of bytecode that never misses it's intended target.
 
 ### Cloud
-A smart contract address that's deterministically pre-computed but has no contract deployed to it. Also known as a lazy, counterfactual, wallet contract. It's address is determined in part by both the Hunter and the Arrow. Tokens, NFT's, and Ether can be sent to this Cloud of pure nothingness.
+A smart contract address that's deterministically pre-computed but has no contract deployed to it. Also known as a lazy, counterfactual, wallet contract. It's address is determined in part by both the Hunter and the Arrow -- such is the circle of life.**Tokens, NFT's, and Ether can all be sent to this Cloud of pure nothingness.**
 
 ### Quiver
 A registry of Arrows.
@@ -45,17 +45,17 @@ A registry of Arrows.
 
 ### Use
 Step 1.
-Deploy Quiver (or use the [Quiver already deployed on arbitrum])(https://arbiscan.io/address/0x3d87d8fbb1e537aa50b0876ca13ad6d464678117#code).
+Deploy Quiver or use the [Quiver already deployed on arbitrum](https://arbiscan.io/address/0x3d87d8fbb1e537aa50b0876ca13ad6d464678117#code).
 
 Step 2.
 Deploy Hunter.
 
 Step 3.
-`seek()` - Based on the Hunter's address, the Arrow used, and user defined salt, the perfect Cloud is found.
+`seek()` - Based on the Hunter's address, the Arrow used, and user-defined salt, the perfect Cloud is found.
 
 Step 4.
 `shoot()` - After the user has sent in funds or done whatever is needed with the cloud address, a
-contract is create2ed in the cloud which then carries out instructions before selfdestruct()ing.
+contract is create2ed in the Cloud which then carries out instructions before selfdestruct()ing.
 
 Step 5.
 Profit.
